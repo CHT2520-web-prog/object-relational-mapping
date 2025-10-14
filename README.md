@@ -3,15 +3,18 @@
 This practical looks at simple implementations of two ORM patterns, Active Record and Data Mapper. It's the same OO MVC example we looked at earlier but the model layer uses ORM.
 
 ## If you are using Codespaces
+
 - Open your existing codespace (you shouldn't create a new one) https://github.com/codespaces.
 - In the terminal enter
+
 ```
 git clone https://github.com/CHT2520-web-prog/object-relational-mapping
 ```
+
 This will copy the contents of this repository into your codespace.
 
 - Find the file _database/DbConnect.php_ and make changes to the connection settings so they match your database.
-- Start Apache (```apache2ctl start```)
+- Start Apache (`apache2ctl start`)
 - Test the website. You should be able to view and add new films, the edit and delete functionality won't work.
 
 Now move onto [Completing the practical work](#practical)
@@ -22,11 +25,10 @@ Now move onto [Completing the practical work](#practical)
 - Move it into the htdocs folder in XAMPP.
 - Find the file _database/DbConnect.php_ and make changes to the connection settings so they match your database.
 - Test the website. You should be able to view and add new films, the edit and delete functionality won't work.
-  
+
 Now move onto [Completing the practical work](#practical)
 
 ## Completing the practical work <a name="practical"></a>
-
 
 ## The Active Record Pattern
 
@@ -62,11 +64,12 @@ echo "<p>Year:{$film->year} ({$film->getAge()} years old)</p>";
 ```
 
 ### Testing Your Understanding
-- Modify *show.view.php* so that it also displays the duration of the film.
+
+- Modify _show.view.php_ so that it also displays the duration of the film.
 - Can you get the _edit_, _update_ and _delete_ functions to work.
--You don't need to make any changes to _Film.php_, and the _edit.view.php_ has already been created. You only need to make changes to the `FilmController` so that it uses the `Film` model to execute actions, and _index.php_ to do the routing.
-	- For the edit you will need to get the selected film's *id* value from the query string, call the static ```find()``` method of the Film class, and then load *edit.view.php*. This is going to be very similar to the FilmController's ```show()``` method. 
- 	- For update you will need to get the selected film's *id* value from the form, call the static ```find()``` method of the Film class. You then need set the properties of this object using values from the form e.g. ```$film->title = $_POST['title'];``` and finally call the ```save()``` method on this object.
+- You don't need to make any changes to _Film.php_, and the _edit.view.php_ has already been created. You only need to make changes to the `FilmController` so that it uses the `Film` model to execute actions, and _index.php_ to do the routing.
+  - For the edit you will need to get the selected film's _id_ value from the query string, call the static `find()` method of the Film class, and then load _edit.view.php_. This is going to be very similar to the FilmController's `show()` method.
+  - For update you will need to get the selected film's _id_ value from the form, call the static `find()` method of the Film class. You then need set the properties of this object using values from the form e.g. `$film->title = $_POST['title'];` and finally call the `save()` method on this object.
 
 ## Data Mapper
 
@@ -97,7 +100,9 @@ You should find that you can still view and add films. However, now the app is u
 		header('Location: ./index.php');
 	}
 ```
+
 or
+
 ```php
 function show()
 	{
@@ -108,6 +113,7 @@ function show()
 		$this->loadView("show.view", ["film" => $film]);
 	}
 ```
+
 Note the difference between the Active Record pattern and Data Mapper.
 
 ### Testing Your Understanding

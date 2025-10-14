@@ -1,4 +1,5 @@
 <?php
+$pageTitle = "All About the Amazing film app";
 require("./views/partials/header.php");
 ?>
 

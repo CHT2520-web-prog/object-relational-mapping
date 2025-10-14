@@ -2,7 +2,7 @@
 
 namespace models\DataMapper;
 
-use database\DbConnect;
+use Database\DbConnect;
 
 class FilmMapper
 {

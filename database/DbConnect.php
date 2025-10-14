@@ -1,6 +1,6 @@
 <?php
 
-namespace database;
+namespace Database;
 
 use \PDO;
 use \PDOException;
@@ -12,7 +12,7 @@ class DbConnect
     {
         if (!self::$conn) {
             try {
-                self::$conn = new PDO('mysql:host=localhost;dbname=MyDatabase', 'MyUsername', 'MyPassword');
+                self::$conn = new PDO('mysql:host=localhost;dbname=cht2520', 'root', '');
             } catch (PDOException $exception) {
                 echo "Oh no, there was a problem" . $exception->getMessage();
             }

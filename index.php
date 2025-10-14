@@ -1,7 +1,10 @@
 <?php
-spl_autoload_register();
+spl_autoload_register(function ($class_name) {
+    $class_name = str_replace("\\", "/", $class_name);
+    require($class_name . '.php');
+});
 
-use controllers\FilmController;
+use Controllers\FilmController;
 
 $filmController =  new FilmController();
 
@@ -12,22 +15,23 @@ if (isset($_GET['action'])) {
 }
 
 //Just for test purposes, so we can see the action.
-echo "<p>The action is <strong>{$action}</strong></p>";
+// echo "<p>The action is <strong>{$action}</strong></p>";
 
-//Test the action value and call a function in controllers/filmController.php
+//Test the action value and call a function in Controllers/FilmController.php
 if ($action === "/") {
-    //Call index() in filmController
     $filmController->index();
 } else if ($action === "show") {
-    //Call show() in filmController
     $filmController->show();
 } else if ($action === "create") {
-    //Call create() in filmController
     $filmController->create();
-} else if ($action === "about") {
-    //Call about() in filmController
-    $filmController->about();
 } else if ($action === "store") {
-    //Call store() in filmController
     $filmController->store();
+} else if ($action === "edit") {
+    $filmController->edit();
+} else if ($action === "update") {
+    $filmController->update();
+} else if ($action === "delete") {
+    $filmController->destroy();
+} else if ($action === "about") {
+    $filmController->about();
 }

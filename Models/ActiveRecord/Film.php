@@ -2,7 +2,7 @@
 
 namespace Models\ActiveRecord;
 
-use database\DbConnect;
+use Database\DbConnect;
 
 class Film
 {

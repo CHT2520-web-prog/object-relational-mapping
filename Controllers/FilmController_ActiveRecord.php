@@ -2,20 +2,15 @@
 
 namespace Controllers;
 
-use Models\DataMapper\Film;
-use Models\DataMapper\FilmMapper;
+use Models\ActiveRecord\Film;
 
 class FilmController extends BaseController
 {
-	private $filmMapper;
-	function __construct()
-	{
-		$this->filmMapper = new FilmMapper();
-	}
+	function __construct() {}
 	public function index()
 	{
-		//Get all the films
-		$films = $this->filmMapper->findAll();
+		//Get all the films from the model
+		$films = Film::all();
 		$this->loadView("index.view", ["films" => $films]);
 	}
 	function create()
@@ -27,12 +22,8 @@ class FilmController extends BaseController
 		//Get the id from the query string e.g. for show.php?id=2, $_GET['id'] has a value of 2
 		$id = $_GET['id'];
 		//Get the film from the model
-		$film = $this->filmMapper->findById($id);
+		$film = Film::find($id);
 		$this->loadView("show.view", ["film" => $film]);
-	}
-	function about()
-	{
-		$this->loadView("about.view");
 	}
 	function store()
 	{
@@ -40,10 +31,9 @@ class FilmController extends BaseController
 		$title = $_POST['title'];
 		$year = $_POST['year'];
 		$duration = $_POST['duration'];
-		//Create a new Film object
+		//Ask the model to save the new film
 		$film = new Film($title, $year, $duration);
-		//Ask the mapper to save the film in the database
-		$this->filmMapper->persist($film);
+		$film->save();
 		//Redirect the user to the home page
 		header('Location: ./index.php');
 	}
@@ -52,30 +42,33 @@ class FilmController extends BaseController
 		//Get the id from the query string e.g. for show.php?id=2, $_GET['id'] has a value of 2
 		$id = $_GET['id'];
 		//Get the film from the model
-		$film = $this->filmMapper->findById($id);
+		$film = Film::find($id);
 		$this->loadView("edit.view", ["film" => $film]);
 	}
 	function update()
 	{
-		//Get the id from the query string e.g. for show.php?id=2, $_GET['id'] has a value of 2
+		//get the id from the form and find the film
 		$id = $_POST['id'];
-		//Get the film from the model
-		$film = $this->filmMapper->findById($id);
+		$film = Film::find($id);
 		//set the film properties using values from the form
 		$film->title = $_POST['title'];
 		$film->year = $_POST['year'];
 		$film->duration = $_POST['duration'];
 		//store the film in the database
-		$this->filmMapper->persist($film);
+		$film->save();
 		//Redirect the user to the home page
 		header('Location: ./index.php');
 	}
 	function destroy()
-	{		//Get the id from the query string e.g. for show.php?id=2, $_GET['id'] has a value of 2
+	{
+		//get the id from the form and find the film
 		$id = $_POST['id'];
-		//Get the film from the model
-		$film = $this->filmMapper->findById($id);
-		$this->filmMapper->delete($film);
+		$film = Film::find($id);
+		$film->delete();
 		header('Location: ./index.php');
+	}
+	function about()
+	{
+		$this->loadView("about.view");
 	}
 }
