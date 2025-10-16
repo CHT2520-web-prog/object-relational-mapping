@@ -1,6 +1,6 @@
 <?php
 
-namespace models\DataMapper;
+namespace Models\DataMapper;
 
 use Database\DbConnect;
 
